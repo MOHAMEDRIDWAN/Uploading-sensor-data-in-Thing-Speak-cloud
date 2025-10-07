@@ -1,3 +1,5 @@
+# NAME : MOHAMED RIDWAN A
+# REG NO : 212223110030
 # Uploading temperature sensor data in Thing Speak cloud
 
 # AIM:
@@ -71,10 +73,71 @@ Automatically act on your data and communicate using third-party services like T
 
 
 # PROGRAM:
+```
+#include "DHT.h"
+#include <WiFi.h>
+#include <ThingSpeak.h>
 
+const int out = 2;
+float Temperature = 0;
+float Humidity = 0;
+
+WiFiClient client;               // fixed: WiFiClient (was WifiClient)
+char ssid[] = "OnePlus";
+char password[] = "12345678";
+DHT dht(out, DHT11);
+
+unsigned long myChannelField = 3095594; // fixed case to match usage below
+const int TemperatureField = 1;         // renamed to avoid conflict with float Temperature
+const int HumidityField = 2;
+const char* myWriteAPIKey = "9BU8FE2XRWV52II2";
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+  pinMode(out, INPUT);
+  ThingSpeak.begin(client); // initialize ThingSpeak client
+}
+
+void loop() {
+  if (WiFi.status() != WL_CONNECTED) {            // fixed: WiFi (not Wifi)
+    Serial.print("Attempting to connect to ssid");
+    Serial.println(ssid);
+
+    while (WiFi.status() != WL_CONNECTED) {
+      WiFi.begin(ssid, password);
+      Serial.print(".");
+      delay(5000);
+    }
+    Serial.println("\nConnected");
+  }
+
+  Temperature = dht.readTemperature();
+  Humidity = dht.readHumidity();
+
+  Serial.print("Temperature: ");
+  Serial.print(Temperature);
+  Serial.println(" C");
+
+  Serial.print("Humidity: ");
+  Serial.print(Humidity);
+  Serial.println(" %"); // changed unit to % (DHT returns relative humidity)
+
+  delay(3000);
+
+  // Use the same field identifiers you defined above and your global vars
+  ThingSpeak.setField(TemperatureField, Temperature);
+  ThingSpeak.setField(HumidityField, Humidity);
+  ThingSpeak.writeFields(myChannelField, myWriteAPIKey); // send fields to ThingSpeak
+  delay(5000);
+}
+```
 # CIRCUIT DIAGRAM:
+![WhatsApp Image 2025-10-07 at 10 16 36_6e55ec5f](https://github.com/user-attachments/assets/781c1ba4-d32e-402e-ba4a-289b636034d1)
 
 # OUTPUT:
+<img width="1919" height="843" alt="Screenshot 2025-09-30 122329" src="https://github.com/user-attachments/assets/f684bc29-0fdf-4bd8-9a12-7cd6fafe42a1" />
+<img width="1913" height="711" alt="Screenshot 2025-09-30 122319" src="https://github.com/user-attachments/assets/44ec0f86-866e-42d6-978e-f988b183dd18" />
 
 # RESULT:
 
