@@ -133,7 +133,7 @@ void loop() {
 }
 ```
 # CIRCUIT DIAGRAM:
-![WhatsApp Image 2025-10-07 at 10 16 36_6e55ec5f](https://github.com/user-attachments/assets/781c1ba4-d32e-402e-ba4a-289b636034d1)
+![WhatsApp Image 2025-10-08 at 09 21 34_47332839](https://github.com/user-attachments/assets/52573b9e-d3cb-46b3-9719-1d7a10d6ad3c)
 
 # OUTPUT:
 <img width="1913" height="1073" alt="Screenshot 2025-10-07 102255" src="https://github.com/user-attachments/assets/d680d971-53b0-4567-83f4-e237a2d4e3e4" />
